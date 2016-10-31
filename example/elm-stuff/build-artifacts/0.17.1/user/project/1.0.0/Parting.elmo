@@ -1,0 +1,58 @@
+var _user$project$Parting$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('parting')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html$text(model)
+			]));
+};
+var _user$project$Parting$partings = _elm_lang$core$Native_List.fromArray(
+	['Adieu', 'Adios', 'Arrivederci', 'Au revoir', 'Bye bye', 'Bye now', 'Bye', 'Catch ya', 'Catch you later', 'Farewell', 'Good-bye', 'Goodbye', 'Have a good one', 'later', 'Peace out', 'Peace', 'Sayonara', 'Seeya later', 'Seeya', 'So long', 'Ta-Ta', 'Take care', 'Tootles']);
+var _user$project$Parting$getParting = F2(
+	function (num, model) {
+		var arr = _elm_lang$core$Array$fromList(_user$project$Parting$partings);
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			model,
+			A2(_elm_lang$core$Array$get, num, arr));
+	});
+var _user$project$Parting$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		return {
+			ctor: '_Tuple2',
+			_0: A2(_user$project$Parting$getParting, _p0._0, model),
+			_1: _elm_lang$core$Platform_Cmd$none
+		};
+	});
+var _user$project$Parting$model = '';
+var _user$project$Parting$SetRandomInt = function (a) {
+	return {ctor: 'SetRandomInt', _0: a};
+};
+var _user$project$Parting$getRandomInt = function (length) {
+	return A2(
+		_elm_lang$core$Random$generate,
+		_user$project$Parting$SetRandomInt,
+		A2(_elm_lang$core$Random$int, 1, length));
+};
+var _user$project$Parting$init = {
+	ctor: '_Tuple2',
+	_0: _user$project$Parting$model,
+	_1: _user$project$Parting$getRandomInt(
+		_elm_lang$core$List$length(_user$project$Parting$partings))
+};
+var _user$project$Parting$main = {
+	main: _elm_lang$html$Html_App$program(
+		{
+			init: _user$project$Parting$init,
+			view: _user$project$Parting$view,
+			update: _user$project$Parting$update,
+			subscriptions: function (_p1) {
+				return _elm_lang$core$Platform_Sub$none;
+			}
+		})
+};
