@@ -24,7 +24,7 @@ module Parting exposing (..)
 @docs partings
 -}
 
-import Html exposing (text, Html, div)
+import Html exposing (text, Html, span)
 import Html.Attributes exposing (class)
 import Html.App as HA
 import Random
@@ -68,7 +68,7 @@ partings =
     , "Good-bye"
     , "Goodbye"
     , "Have a good one"
-    , "later"
+    , "Later"
     , "Peace out"
     , "Peace"
     , "Sayonara"
@@ -119,7 +119,7 @@ update msg model =
 -}
 view : Model -> Html Msg
 view model =
-    div [ class "parting" ]
+    span [ class "parting" ]
         [ text model
         ]
 
