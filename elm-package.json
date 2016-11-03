@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "summary": "Include a random parting message in your elm app.",
     "repository": "https://github.com/chrisbuttery/elm-parting.git",
     "license": "BSD3",
