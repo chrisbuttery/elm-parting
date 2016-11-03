@@ -1,19 +1,24 @@
 module Main exposing (..)
 
-import Html exposing (text, Html, div)
-import Html.Attributes exposing (class)
+import Html exposing (text, Html, div, span)
+import Html.Attributes exposing (classList)
 import Html.App as HA
 import Parting
+import Task
+import Process
+import Time
 
 
 type alias Model =
     { parting : Parting.Model
+    , visible : Bool
     }
 
 
 model : Model
 model =
     { parting = Parting.model
+    , visible = False
     }
 
 
@@ -23,11 +28,13 @@ init =
         ( str, msg ) =
             Parting.init
     in
-        ( model, Cmd.map PartingMsg msg )
+        ( model, Cmd.batch [ Cmd.map PartingMsg msg, delayVisibility ] )
 
 
 type Msg
     = PartingMsg Parting.Msg
+    | Visible Bool
+    | NoOp ()
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -42,6 +49,19 @@ update msg model =
                 , Cmd.map PartingMsg progressCmd
                 )
 
+        NoOp _ ->
+            ( model, Cmd.none )
+
+        Visible bool ->
+            ( { model | visible = bool }, Cmd.none )
+
+
+delayVisibility : Cmd Msg
+delayVisibility =
+    Task.perform NoOp Visible
+        <| Process.sleep (1 * Time.second)
+        `Task.andThen` \_ -> Task.succeed True
+
 
 renderParting : Model -> Html Msg
 renderParting model =
@@ -50,8 +70,14 @@ renderParting model =
 
 view : Model -> Html Msg
 view model =
-    div [ class "app" ]
+    div
+        [ classList
+            [ ( "app", True )
+            , ( "visible", model.visible )
+            ]
+        ]
         [ renderParting model
+        , span [] [ text ", thanks for being awesome!" ]
         ]
 
 
